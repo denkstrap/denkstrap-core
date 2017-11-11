@@ -1,0 +1,18 @@
+# Logs
+logs
+*.log
+
+# Temporary files
+.DS_Store
+
+# Node modules
+node_modules
+
+# Artifacts folder with generated content
+artifacts
+
+# Generated distribution files
+dist
+
+# PhpStorm/Webstorm project files
+.idea

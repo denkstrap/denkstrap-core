@@ -1,0 +1,29 @@
+{
+  "name": "denkstrap-core",
+  "version": "1.0.0",
+  "description": "denkstrap core package",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "unpkg": "dist/index.js",
+  "jsdeliver": "dist/index.js",
+  "files": [
+    "dist/**/*.js"
+  ],
+  "scripts": {
+    "dev": "echo \"Error: no dev task specified yet\" && exit 1",
+    "build": "tsc",
+    "release": "echo \"Error: no release task specified yet\" && exit 1",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublish": "npm run build"
+  },
+  "keywords": [
+    "denkstrap",
+    "core"
+  ],
+  "author": "matthias.permien@denkwerk.com",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^2.6.1"
+  },
+  "dependencies": {}
+}

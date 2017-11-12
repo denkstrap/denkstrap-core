@@ -10,9 +10,9 @@ import { ICondition } from './index';
  */
 export const inViewport: ICondition = ( load, element ) => {
 
-    const handleIntersect = ( entries: IntersectionObserverEntry[], observer: IntersectionObserver ) => {
+    const handleIntersect: IntersectionObserverCallback = ( entries: IntersectionObserverEntry[], observer: IntersectionObserver ) => {
         entries.forEach( (entry: IntersectionObserverEntry) => {
-            if ( entry.intersectionRatio > 0 ) {
+            if ( entry.isIntersecting ) {
                 observer.unobserve( entry.target );
                 load();
             }
@@ -20,7 +20,7 @@ export const inViewport: ICondition = ( load, element ) => {
     };
 
     const observer = new IntersectionObserver( handleIntersect, {
-        root: document.body
+        threshold: 0.25
     } );
 
     observer.observe( element );

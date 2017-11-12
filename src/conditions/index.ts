@@ -4,6 +4,8 @@ export interface ICondition {
     ( load: () => void, element: Element ): void
 }
 
-export default {
+const conditions: { [key: string] : ICondition } = {
     inViewport
-}
+};
+
+export default conditions;

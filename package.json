@@ -1,6 +1,6 @@
 {
   "name": "denkstrap-core",
-  "version": "1.0.0",
+  "version": "3.0.0-aplha.1",
   "description": "denkstrap core package",
   "main": "dist/index.js",
   "module": "dist/index.js",

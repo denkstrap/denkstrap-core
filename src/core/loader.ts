@@ -1,6 +1,8 @@
 import { data } from '../utils/helper/data';
+import conditions from '../conditions/index';
 import { MessageService, LoaderComponentInitFailed, LoaderDynamicImportFailed, ComponentInitFailed } from '../services/message';
 import { defaultDenkstrapOptions, IDenkstrapOptions } from '../denkstrap';
+import { once } from '../utils/helper/once';
 
 /**
  * Component Interface
@@ -11,7 +13,8 @@ export interface IComponentContext {
     dependencies: string[];
     parentComponent?: IComponentContext;
     children: IComponentContext[];
-    instance?: any
+    instance?: any,
+    condition?: string
 }
 
 /**
@@ -102,9 +105,29 @@ export class Loader {
 
             if ( !nextComponent.done ) {
                 // Load next component
-                // 🚧 TODO:
-                // Implement conditions
-                this.loadComponent( nextComponent.value );
+                let componentObject = nextComponent.value;
+
+                if (
+                    componentObject.condition &&
+                    typeof componentObject.condition === 'string'
+                ) {
+                    try {
+                        conditions[ componentObject.condition ].call(
+                            this,
+                            once( this.loadComponent.bind( this, componentObject ) ),
+                            componentObject.element
+                        );
+                    } catch ( error ) {
+                        console.warn( 'The condition "' + componentObject.condition + '" doesn\'t exist.' );
+                    }
+                } else {
+                    this.loadComponent( componentObject );
+                }
+
+                // ⚠️ WARNING ⚠️
+                // {@Link: Loader.fetchComponents} runs into an infinite loop if the
+                // initializedClass is not set after initializing the component!
+                componentObject.element.classList.add( this.options.initializedClass );
             }
 
         } while ( !nextComponent.done );
@@ -180,11 +203,6 @@ export class Loader {
 
         this.components.push( componentObject );
 
-        // ⚠️ WARNING ⚠️
-        // {@Link: Loader.fetchComponents} runs into an infinite loop if the
-        // initializedClass is not set after initializing the component!
-        componentObject.element.classList.add( this.options.initializedClass );
-
         // Load dependencies with System.import.
         // @type {Array.<Promise>}
         const loadedDependencies: Promise<any>[] = componentObject.dependencies.map( component =>
@@ -208,7 +226,7 @@ export class Loader {
 
     /**
      * Construct a component
-     * @param {Array.<Class>} components      The component to construct (TODO: Replace with an array/map?)
+     * @param {Array.<*>} components      The component to construct (TODO: Replace with an array/map?)
      * @param {Object}        componentObject The componentObject (TODO: Replace with an array/map?)
      */
     constructComponent( components: Array<any>, componentObject: IComponentContext ) {

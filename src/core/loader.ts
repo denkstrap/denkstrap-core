@@ -8,13 +8,14 @@ import { once } from '../utils/helper/once';
  * Component Interface
  */
 export interface IComponentContext {
-    element: Element;
-    options?: Object;
-    dependencies: string[];
-    parentComponent?: IComponentContext;
-    children: IComponentContext[];
-    instance?: any,
-    condition?: string
+    $element: Element;
+    $data: {
+        condition?: string
+    };
+    $dependencies: string[];
+    $parentComponent?: IComponentContext;
+    $children: IComponentContext[];
+    $instance?: any
 }
 
 /**
@@ -71,7 +72,7 @@ export class Loader {
                 .all( this.queries )
                 .then( () => {
                     Promise
-                        .all( this.components.map( component => component.instance.promise ) )
+                        .all( this.components.map( component => component.$instance.promise ) )
                         .then( resolve )
                         .catch( err => {
                             this.messageService.error( LoaderComponentInitFailed, err );
@@ -108,17 +109,17 @@ export class Loader {
                 let componentObject = nextComponent.value;
 
                 if (
-                    componentObject.condition &&
-                    typeof componentObject.condition === 'string'
+                    componentObject.$data.condition &&
+                    typeof componentObject.$data.condition === 'string'
                 ) {
                     try {
-                        conditions[ componentObject.condition ].call(
+                        conditions[ componentObject.$data.condition ].call(
                             this,
                             once( this.loadComponent.bind( this, componentObject ) ),
-                            componentObject.element
+                            componentObject.$element
                         );
                     } catch ( error ) {
-                        console.warn( 'The condition "' + componentObject.condition + '" doesn\'t exist.' );
+                        console.warn( 'The condition "' + componentObject.$data.condition + '" doesn\'t exist.' );
                     }
                 } else {
                     this.loadComponent( componentObject );
@@ -127,7 +128,7 @@ export class Loader {
                 // ⚠️ WARNING ⚠️
                 // {@Link: Loader.fetchComponents} runs into an infinite loop if the
                 // initializedClass is not set after initializing the component!
-                componentObject.element.classList.add( this.options.initializedClass );
+                componentObject.$element.classList.add( this.options.initializedClass );
             }
 
         } while ( !nextComponent.done );
@@ -171,15 +172,17 @@ export class Loader {
      * @param {Object}      parentComponent Parents component
      * @returns {Object}                    Object with all denkstrap data attributes, element and parent
      */
-    static getComponentContextObject( element: Element, parentComponent?: IComponentContext ): IComponentContext {
+    static getComponentContextObject( $element: Element, $parentComponent?: IComponentContext ): IComponentContext {
 
-        let denkstrapDataAttributes: { [key: string]: any } = data( element, '*', 'ds' );
+        let denkstrapDataAttributes: { [key: string]: any } = data( $element, '*', 'ds' );
 
         return Object.assign(
-            denkstrapDataAttributes,
             {
-                element,
-                dependencies: [ 'component', 'components' ]
+                $data: denkstrapDataAttributes
+            },
+            {
+                $element,
+                $dependencies: [ 'component', 'components' ]
                     .map( content => {
                         let deps: string | null = denkstrapDataAttributes[ content ];
                         return typeof deps === 'string' ?
@@ -189,8 +192,8 @@ export class Loader {
                     .reduce( ( a, b ) => {
                         return a.concat( b );
                     } ),
-                parentComponent,
-                children: []
+                $parentComponent,
+                $children: []
             }
         );
     }
@@ -205,7 +208,7 @@ export class Loader {
 
         // Load dependencies with System.import.
         // @type {Array.<Promise>}
-        const loadedDependencies: Promise<any>[] = componentObject.dependencies.map( component =>
+        const loadedDependencies: Promise<any>[] = componentObject.$dependencies.map( component =>
             import( `components/${component}` )
         );
 
@@ -232,7 +235,7 @@ export class Loader {
     constructComponent( components: Array<any>, componentObject: IComponentContext ) {
 
         components.forEach( (Component: any) => {
-            componentObject.instance = new Component( componentObject, this.messageService );
+            componentObject.$instance = new Component( componentObject, this.messageService );
         } );
 
     }

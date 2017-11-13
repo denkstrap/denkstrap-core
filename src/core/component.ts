@@ -8,8 +8,15 @@ import { IComponentContext } from './loader';
  *
  * @class Module
  */
-export class Component {
-    private context: IComponentContext;
+export class Component implements IComponentContext {
+
+    $element: Element;
+    $dependencies: string[];
+    $parentComponent: IComponentContext;
+    $children: IComponentContext[];
+    $data: {};
+
+
     private promise: Promise<never | any>;
 
     /**
@@ -26,9 +33,11 @@ export class Component {
      * @constructs
      */
     constructor( context: IComponentContext, messageService: MessageService ) {
-        this.context = context;
+        Object.assign( this, context );
+
         // TODO: Hier scheint es noch eine RaceCondition zu geben
-        // this.registerAsChild();
+        // this.registerAsChild( context );
+
         this.promise = new Promise( ( resolve: () => any, reject: ( err: Error ) => any ) => {
             this.build().then( () => resolve() ).catch( err => reject( err ) );
         } ).catch( err => messageService.error( ComponentInitFailed, err, context ) );
@@ -52,9 +61,9 @@ export class Component {
     /**
      * Register as child of the given parentComponent
      */
-    registerAsChild() {
-        if ( this.context.parentComponent ) {
-            this.context.parentComponent.instance.registerChild( this.context );
+    registerAsChild( self: IComponentContext ) {
+        if ( this.$parentComponent ) {
+            this.$parentComponent.$instance.registerChild( self );
         }
     }
 
@@ -63,7 +72,7 @@ export class Component {
      * @param child
      */
     registerChild( child: IComponentContext ) {
-        this.context.children.push( child );
+        this.$children.push( child );
         // TODO: some magic, for example livecycle methods?
     }
 

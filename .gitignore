@@ -16,3 +16,6 @@ dist
 
 # PhpStorm/Webstorm project files
 .idea
+
+# NPM packages
+denkstrap-core-*.tgz

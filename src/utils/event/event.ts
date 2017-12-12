@@ -32,7 +32,7 @@ export class Event {
      *                         If undefined the context is the event itself
      * @param {Array} args Arguments will be passed in callback function
      */
-    trigger( namespace: string[], context: any, args: Array<any> ) {
+    trigger( namespace: string[], context?: any, args?: Array<any> ) {
         if ( !namespace.length || this.hasNamespace( namespace ) ) {
             let eventArgs = [ this ];
             if ( Array.isArray( args ) && args.length > 0 ) {

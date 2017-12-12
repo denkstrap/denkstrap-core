@@ -99,7 +99,7 @@ export class Dispatcher {
      * @param {Array} [args] Arguments wich will be passed in the event callback
      * @param {Object} [context] Context will be applied to event callback
      */
-    trigger( eventName: string, args: any[], context: any ) {
+    trigger( eventName: string, args?: any[], context?: any ) {
         let name = Dispatcher.splitName( eventName );
         let events = this._events[ name.name ];
 

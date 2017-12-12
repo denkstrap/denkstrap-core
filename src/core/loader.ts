@@ -1,22 +1,10 @@
 import { data } from '../utils/helper/data';
 import conditions from '../conditions/index';
 import { MessageService, LoaderComponentInitFailed, LoaderDynamicImportFailed, ComponentInitFailed } from '../services/message';
-import { defaultDenkstrapOptions, IDenkstrapOptions } from '../denkstrap';
+import { defaultDenkstrapOptions } from '../denkstrap';
 import { once } from '../utils/helper/once';
+import { IComponentContext, IDenkstrapOptions } from '../index.d';
 
-/**
- * Component Interface
- */
-export interface IComponentContext {
-    $element: Element;
-    $data: {
-        condition?: string
-    };
-    $dependencies: string[];
-    $parentComponent?: IComponentContext;
-    $children: IComponentContext[];
-    $instance?: any
-}
 
 /**
  * Loader
@@ -26,19 +14,19 @@ export class Loader {
 
     /**
      * Default configuration
-     * @type {Object}
+     * @type {IDenkstrapOptions}
      */
     private options: IDenkstrapOptions;
 
     /**
      * Array for components
-     * @type {Array}
+     * @type {Array<IDenkstrapOptions>}
      */
     components: IComponentContext[] = [];
 
     /**
      * Array for components
-     * @type {Array}
+     * @type {Array<Promise>}
      */
     private queries: Array<Promise<any>> = [];
 
@@ -48,22 +36,16 @@ export class Loader {
 
     /**
      * Loader
-     * @param {Object}      [options]                  Configuration object
-     * @param {String}      [options.autoInitSelector] Selector for denkstrap components
-     * @param {String}      [options.initializedClass] Class for initialized components
-     * @param {Element} [options.context]          HTML Context
      * @constructor
      */
-    constructor( options: IDenkstrapOptions ) {
+    constructor( options: IDenkstrapOptions, messageService?: MessageService ) {
 
         this.options = Object.assign(
             defaultDenkstrapOptions,
             options
         );
 
-        this.messageService = new MessageService( {
-            simpleLogs: this.options.simpleLogs
-        } );
+        this.messageService = messageService || new MessageService( this.options );
 
         this.fetchComponents();
 
@@ -168,9 +150,8 @@ export class Loader {
 
     /**
      * Get components informations
-     * @param {Element} element         Own element
-     * @param {Object}      parentComponent Parents component
-     * @returns {Object}                    Object with all denkstrap data attributes, element and parent
+     * @param $element Element
+     * @param [$parentComponent] Parent Component
      */
     static getComponentContextObject( $element: Element, $parentComponent?: IComponentContext ): IComponentContext {
 
@@ -200,14 +181,13 @@ export class Loader {
 
     /**
      * Load component
-     * @param {Object} componentObject Object with components information {@Link Loader.getComponentContextObject}
+     * @param componentObject Object with components information {@Link Loader.getComponentContextObject}
      */
     loadComponent( componentObject: IComponentContext ) {
 
         this.components.push( componentObject );
 
         // Load dependencies with System.import.
-        // @type {Array.<Promise>}
         const loadedDependencies: Promise<any>[] = componentObject.$dependencies.map( component =>
             import( `components/${component}` )
         );

@@ -1,8 +1,5 @@
 import { inViewport } from './in-viewport';
-
-export interface ICondition {
-    ( load: () => void, element: Element ): void
-}
+import { ICondition } from '../index.d';
 
 const conditions: { [key: string] : ICondition } = {
     inViewport

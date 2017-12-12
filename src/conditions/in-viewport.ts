@@ -1,4 +1,4 @@
-import { ICondition } from './index';
+import { ICondition } from '../index.d';
 
 /**
  * inViewport condition

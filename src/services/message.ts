@@ -34,12 +34,12 @@ export const ERROR_PAGE = 'https://github.com/denkstrap/denkstrap/wiki/Errors#';
 
 export class MessageService {
 
-    private config: {
+    private options: {
         simpleLogs: boolean
     };
 
     constructor( { simpleLogs }: { simpleLogs: boolean } ) {
-        this.config = {
+        this.options = {
             simpleLogs
         };
     }
@@ -62,7 +62,7 @@ export class MessageService {
         const msgPart4 = `\n▶`;
         let msg = [];
 
-        if ( this.config.simpleLogs ) {
+        if ( this.options.simpleLogs ) {
             msg.push( msgPart2 );
         } else {
             msg.push( msgPart1, msgPart2, msgPart3, msgPart4, ...data );

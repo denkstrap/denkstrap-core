@@ -1,5 +1,5 @@
 import { ComponentInitFailed, MessageService } from '../services/message';
-import { IComponentContext } from './loader';
+import { IComponentContext } from '../index.d';
 
 /**
  * Module
@@ -14,7 +14,10 @@ export class Component implements IComponentContext {
     $dependencies: string[];
     $parentComponent: IComponentContext;
     $children: IComponentContext[];
-    $data: {};
+    $data: {
+        options?: {}
+    };
+    $options: {};
 
 
     private promise: Promise<never | any>;
@@ -26,14 +29,24 @@ export class Component implements IComponentContext {
      */
     chain(): Array<string> {
         return [ 'ready', 'events' ];
-    };
+    }
+
+    defaults() {
+        return {};
+    }
 
     /**
-     * @param {Object} context Loader IComponentContext
+     * @param {IComponentContext} context Loader IComponentContext
+     * @param {MessageService} messageService
      * @constructs
      */
     constructor( context: IComponentContext, messageService: MessageService ) {
         Object.assign( this, context );
+
+        this.$options = {
+            ...this.defaults(),
+            ...context.$data.options
+        };
 
         // TODO: Hier scheint es noch eine RaceCondition zu geben
         // this.registerAsChild( context );

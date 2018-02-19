@@ -37,6 +37,10 @@ export class Loader {
 
     private promise: Promise<any>;
 
+    private conditions: {
+        [key: string]: Condition
+    };
+
     /**
      * Loader
      * @constructor
@@ -47,6 +51,15 @@ export class Loader {
             defaultDenkstrapOptions,
             options
         );
+
+        // TODO: Entscheidung offen:
+        // Bekommt jeder Loader ein eigenes Set von Conditions
+        // oder Erweitern wir ein allgemeines Set auf das alle
+        // Loader zugreifen können
+        this.conditions = {
+            ...conditions,
+            ...this.options.conditions
+        };
 
         this.messageService = messageService || new MessageService( this.options );
 

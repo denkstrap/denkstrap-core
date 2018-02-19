@@ -22,7 +22,7 @@
     "core"
   ],
   "author": "matthias.permien@denkwerk.com",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@types/jest": "^22.1.0",
     "jest-cli": "^22.1.4",

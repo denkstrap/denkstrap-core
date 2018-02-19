@@ -13,41 +13,33 @@
  *~ Otherwise, delete this declaration.
  */
 
-import { Loader } from './core/loader';
-import { MessageService } from './services/message';
-import BreakpointDetection from './services/breakpointDetection';
-
 export as namespace denkstrap;
 
-export interface IDenkstrap {
-    loader: Loader,
-    options: IDenkstrapOptions
-    messageService: MessageService,
-    breakpointDetectionService: BreakpointDetection,
-}
-
-export interface IDenkstrapOptions {
+export interface DenkstrapOptions {
     simpleLogs: boolean,
     autoInitSelector: string[],
     initializedClass: string,
     context: Element,
     expose: boolean,
     breakpointDetectionSelector: string,
-    defaultBreakpoint: string
+    defaultBreakpoint: string,
+    conditions: {
+        [key: string]: Condition
+    }
 }
 
-export interface IComponentContext {
+export interface ComponentContext {
     $element: Element;
     $data: {
         condition?: string,
         options?: {}
     };
-    $dependencies: string[];
-    $parentComponent?: IComponentContext;
-    $children: IComponentContext[];
+    $components: string[];
+    $parentComponent?: ComponentContext;
+    $children: ComponentContext[];
     $instance?: any
 }
 
-export interface ICondition {
+export interface Condition {
     ( load: () => void, element: Element ): void
 }

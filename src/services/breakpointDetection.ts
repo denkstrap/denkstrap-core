@@ -1,5 +1,5 @@
 import Event from '../utils/event/index';
-import { IDenkstrapOptions } from '../index.d';
+import { DenkstrapOptions } from '../index.d';
 import { BREAKPOINT_CHANGE_EVENT } from '../core/events';
 
 /**
@@ -12,7 +12,7 @@ import { BREAKPOINT_CHANGE_EVENT } from '../core/events';
  */
 export default class BreakpointDetection {
 
-    private options: IDenkstrapOptions;
+    private options: DenkstrapOptions;
     private currentBreakpoint: string;
 
     /**
@@ -22,7 +22,7 @@ export default class BreakpointDetection {
      * @param [options] The options
      * @constructs
      */
-    constructor( options?: IDenkstrapOptions ) {
+    constructor( options?: DenkstrapOptions ) {
         this.currentBreakpoint = '';
         this.options = Object.assign( BreakpointDetection.defaults(), options );
         this.currentBreakpoint = this.get();

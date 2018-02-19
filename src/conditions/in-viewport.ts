@@ -1,4 +1,4 @@
-import { ICondition } from '../index.d';
+import { Condition } from '../index.d';
 
 /**
  * inViewport condition
@@ -6,9 +6,9 @@ import { ICondition } from '../index.d';
  * @param {Function} load Use to load module
  * @param {Element} element Element on which the module was initialized
  * @type {Function}
- * @implements ICondition
+ * @implements Condition
  */
-export const inViewport: ICondition = ( load, element ) => {
+export const inViewport: Condition = ( load, element ) => {
 
     const handleIntersect: IntersectionObserverCallback = ( entries: IntersectionObserverEntry[], observer: IntersectionObserver ) => {
         entries.forEach( (entry: IntersectionObserverEntry) => {

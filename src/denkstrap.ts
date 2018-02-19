@@ -1,9 +1,9 @@
 import { Loader } from './core/loader';
 import { MessageService } from './services/message';
-import { IDenkstrap, IDenkstrapOptions } from './index.d';
+import { DenkstrapOptions } from './index.d';
 import BreakpointDetection from './services/breakpointDetection';
 
-export const defaultDenkstrapOptions = <IDenkstrapOptions>{
+export const defaultDenkstrapOptions = <DenkstrapOptions>{
     simpleLogs: false,
     autoInitSelector: [
         '[data-ds-component]',
@@ -13,19 +13,20 @@ export const defaultDenkstrapOptions = <IDenkstrapOptions>{
     context: document.body,
     expose: false,
     breakpointDetectionSelector: 'body',
-    defaultBreakpoint: 'default'
+    defaultBreakpoint: 'default',
+    conditions: {}
 };
 
-export class Denkstrap implements IDenkstrap {
+export class Denkstrap  {
 
-    options: IDenkstrapOptions;
+    options: DenkstrapOptions;
     messageService: MessageService;
     breakpointDetectionService: BreakpointDetection;
     loader: Loader;
 
-    constructor( customDenkstrapOptions: IDenkstrapOptions ) {
+    constructor( customDenkstrapOptions: DenkstrapOptions ) {
 
-        this.options = Object.assign( {}, defaultDenkstrapOptions, customDenkstrapOptions );
+        this.options = { ...defaultDenkstrapOptions, ...customDenkstrapOptions };
         this.messageService = new MessageService( this.options );
         this.breakpointDetectionService = new BreakpointDetection( this.options );
         this.loader = new Loader( this.options, this.messageService );

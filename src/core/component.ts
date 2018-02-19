@@ -1,5 +1,5 @@
 import { ComponentInitFailed, MessageService } from '../services/message';
-import { IComponentContext } from '../index.d';
+import { ComponentContext } from '../index.d';
 
 /**
  * Module
@@ -8,12 +8,12 @@ import { IComponentContext } from '../index.d';
  *
  * @class Module
  */
-export class Component implements IComponentContext {
+export class Component implements ComponentContext {
 
     $element: Element;
     $dependencies: string[];
-    $parentComponent: IComponentContext;
-    $children: IComponentContext[];
+    $parentComponent: ComponentContext;
+    $children: ComponentContext[];
     $data: {
         options?: {}
     };
@@ -36,11 +36,11 @@ export class Component implements IComponentContext {
     }
 
     /**
-     * @param {IComponentContext} context Loader IComponentContext
+     * @param {ComponentContext} context Loader ComponentContext
      * @param {MessageService} messageService
      * @constructs
      */
-    constructor( context: IComponentContext, messageService: MessageService ) {
+    constructor( context: ComponentContext, messageService: MessageService ) {
         Object.assign( this, context );
 
         this.$options = {
@@ -74,7 +74,7 @@ export class Component implements IComponentContext {
     /**
      * Register as child of the given parentComponent
      */
-    registerAsChild( self: IComponentContext ) {
+    registerAsChild( self: ComponentContext ) {
         if ( this.$parentComponent ) {
             this.$parentComponent.$instance.registerChild( self );
         }
@@ -84,7 +84,7 @@ export class Component implements IComponentContext {
      * Registers a child
      * @param child
      */
-    registerChild( child: IComponentContext ) {
+    registerChild( child: ComponentContext ) {
         this.$children.push( child );
         // TODO: some magic, for example livecycle methods?
     }

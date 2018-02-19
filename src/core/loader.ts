@@ -3,7 +3,7 @@ import conditions from '../conditions/index';
 import { MessageService, LoaderComponentInitFailed, LoaderDynamicImportFailed, ComponentInitFailed } from '../services/message';
 import { defaultDenkstrapOptions } from '../denkstrap';
 import { once } from '../utils/helper/once';
-import { IComponentContext, IDenkstrapOptions } from '../index.d';
+import { ComponentContext, Condition, DenkstrapOptions } from '../index.d';
 
 
 /**
@@ -14,18 +14,18 @@ export class Loader {
 
     /**
      * Default configuration
-     * @type {IDenkstrapOptions}
+     * @type {DenkstrapOptions}
      */
-    private options: IDenkstrapOptions;
+    private options: DenkstrapOptions;
 
     /**
      * Array for components
-     * @type {Array<IDenkstrapOptions>}
+     * @type {Array<DenkstrapOptions>}
      */
-    components: IComponentContext[] = [];
+    components: ComponentContext[] = [];
 
     /**
-     * Array for components
+     * Array for queried components
      * @type {Array<Promise>}
      */
     private queries: Array<Promise<any>> = [];
@@ -38,7 +38,7 @@ export class Loader {
      * Loader
      * @constructor
      */
-    constructor( options: IDenkstrapOptions, messageService?: MessageService ) {
+    constructor( options: DenkstrapOptions, messageService?: MessageService ) {
 
         this.options = Object.assign(
             defaultDenkstrapOptions,
@@ -75,8 +75,8 @@ export class Loader {
          * componentParser generator instance
          * @type {Generator<Object>}
          */
-        let components: IterableIterator<IComponentContext> = this.componentParser();
-        let nextComponent: IteratorResult<IComponentContext>;
+        let components: IterableIterator<ComponentContext> = this.componentParser();
+        let nextComponent: IteratorResult<ComponentContext>;
 
         // 🚧 TODO:
         // Maybe with promises instead? On the other hand waiting for the
@@ -126,7 +126,7 @@ export class Loader {
      * @param     {Object}      [parentComponent] Object with the parents {@Link Loader.getComponentContextObject}
      * @generates {Object}                        componentObject Object {@Link Loader.getComponentContextObject}
      */
-    * componentParser( scope: Element = this.options.context, parentComponent?: IComponentContext ): IterableIterator<IComponentContext> {
+    * componentParser( scope: Element = this.options.context, parentComponent?: ComponentContext ): IterableIterator<ComponentContext> {
 
         let match: Element | null;
         let selector: string = this.options.autoInitSelector
@@ -138,7 +138,7 @@ export class Loader {
 
             if ( match ) {
 
-                let componentObject: IComponentContext = Loader.getComponentContextObject( match, parentComponent );
+                let componentObject: ComponentContext = Loader.getComponentContextObject( match, parentComponent );
 
                 yield componentObject;
                 yield* this.componentParser( match, componentObject );
@@ -153,7 +153,7 @@ export class Loader {
      * @param $element Element
      * @param [$parentComponent] Parent Component
      */
-    static getComponentContextObject( $element: Element, $parentComponent?: IComponentContext ): IComponentContext {
+    static getComponentContextObject( $element: Element, $parentComponent?: ComponentContext ): ComponentContext {
 
         let denkstrapDataAttributes: { [key: string]: any } = data( $element, '*', 'ds' );
 
@@ -183,7 +183,7 @@ export class Loader {
      * Load component
      * @param componentObject Object with components information {@Link Loader.getComponentContextObject}
      */
-    loadComponent( componentObject: IComponentContext ) {
+    loadComponent( componentObject: ComponentContext ) {
 
         this.components.push( componentObject );
 
@@ -210,11 +210,11 @@ export class Loader {
     /**
      * Construct a component
      * @param {Array.<*>} components      The component to construct (TODO: Replace with an array/map?)
-     * @param {Object}        componentObject The componentObject (TODO: Replace with an array/map?)
+     * @param {Object}    componentObject The componentObject (TODO: Replace with an array/map?)
      */
-    constructComponent( components: Array<any>, componentObject: IComponentContext ) {
+    constructComponent( components: Array<any>, componentObject: ComponentContext ) {
 
-        components.forEach( (Component: any) => {
+        components.forEach( ( Component: any ) => {
             componentObject.$instance = new Component( componentObject, this.messageService );
         } );
 

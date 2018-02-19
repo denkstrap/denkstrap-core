@@ -11,7 +11,7 @@ import { ComponentContext } from '../index.d';
 export class Component implements ComponentContext {
 
     $element: Element;
-    $dependencies: string[];
+    $components: string[];
     $parentComponent: ComponentContext;
     $children: ComponentContext[];
     $data: {

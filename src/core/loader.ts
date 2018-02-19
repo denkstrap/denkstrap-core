@@ -166,7 +166,7 @@ export class Loader {
             },
             {
                 $element,
-                $dependencies: [ 'component', 'components' ]
+                $components: [ 'component', 'components' ]
                     .map( content => {
                         let deps: string | null = denkstrapDataAttributes[ content ];
                         return typeof deps === 'string' ?
@@ -191,7 +191,7 @@ export class Loader {
         this.components.push( componentObject );
 
         // Load dependencies with System.import.
-        const loadedDependencies: Promise<any>[] = componentObject.$dependencies.map( component =>
+        const loadedDependencies: Promise<any>[] = componentObject.$components.map( component =>
             import( `components/${component}` )
         );
 

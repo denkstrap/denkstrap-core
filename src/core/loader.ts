@@ -110,15 +110,22 @@ export class Loader {
                     componentObject.$data.condition &&
                     typeof componentObject.$data.condition === 'string'
                 ) {
-                    try {
-                        conditions[ componentObject.$data.condition ].call(
-                            this,
-                            once( this.loadComponent.bind( this, componentObject ) ),
-                            componentObject.$element
-                        );
-                    } catch ( error ) {
-                        console.warn( 'The condition "' + componentObject.$data.condition + '" doesn\'t exist.' );
+                    if ( this.conditions.hasOwnProperty( componentObject.$data.condition ) ) {
+
+                        try {
+                            this.conditions[ componentObject.$data.condition ].call(
+                                this,
+                                once( this.loadComponent.bind( this, componentObject ) ),
+                                componentObject.$element
+                            );
+                        } catch ( error ) {
+                            this.messageService.error( Codes.ConditionExecutionFailed, error, componentObject );
+                        }
+
+                    } else {
+                        this.messageService.error( Codes.ConditionNotDefined, componentObject );
                     }
+
                 } else {
                     this.loadComponent( componentObject );
                 }

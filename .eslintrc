@@ -9,7 +9,7 @@
         "node": true,
         "browser": true,
         "amd": true,
-        "mocha": true,
+        "jest": true,
         "jquery": true
     },
     "globals": {

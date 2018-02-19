@@ -13,7 +13,8 @@
     "dev": "echo \"Error: no dev task specified yet\" && exit 1",
     "build": "tsc",
     "release": "echo \"Error: no release task specified yet\" && exit 1",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --coverage",
+    "test:watch": "jest --watch --coverage",
     "prepublish": "npm run build"
   },
   "keywords": [
@@ -23,7 +24,29 @@
   "author": "matthias.permien@denkwerk.com",
   "license": "ISC",
   "devDependencies": {
+    "@types/jest": "^22.1.0",
+    "jest-cli": "^22.1.4",
+    "ts-jest": "^22.0.4",
     "typescript": "^2.6.1"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "jest": {
+    "roots": [
+      "src"
+    ],
+    "coverageDirectory": "artifacts/coverage/",
+    "transform": {
+      "^.+\\.ts?$": "ts-jest",
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?|js?|ts?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
+  }
 }

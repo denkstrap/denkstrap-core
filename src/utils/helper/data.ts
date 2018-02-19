@@ -12,8 +12,8 @@
 export function data( node: Element, name: string, prefix?: string ) {
     let dataAttributes: { [key: string]: {} | string } = {};
 
-    prefix = 'data-' + ( ( prefix === undefined ) ? '' : ( prefix + '-' ) );
-    name = prefix + ( ( name === undefined ) ? '*' : name );
+    prefix = 'data-' + ((prefix === undefined) ? '' : (prefix + '-'));
+    name = prefix + ((name === undefined) ? '*' : name);
 
     Array.prototype
         .filter.call( node.attributes, function( item: Attr ) {

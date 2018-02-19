@@ -51,7 +51,7 @@ export class Dispatcher {
      * @param {String} name Event name including namespace
      * @param {Function} callback Callback function
      */
-    on( name: string, callback: () => void ) {
+    on( name: string, callback: (event?:any, ...args:any[]) => void ) {
         this.subscribeEvent( name, callback );
     }
 
@@ -60,7 +60,7 @@ export class Dispatcher {
      * @param {String} name Event name including namespace
      * @param {Function} callback Callback function
      */
-    one( name: string, callback: () => void ) {
+    one( name: string, callback: (event?:any, ...args:any[]) => void ) {
         this.subscribeEvent( name, callback, true );
     }
 

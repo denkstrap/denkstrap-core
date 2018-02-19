@@ -1,6 +1,9 @@
 import { data } from '../utils/helper/data';
 import conditions from '../conditions/index';
-import { MessageService, LoaderComponentInitFailed, LoaderDynamicImportFailed, ComponentInitFailed } from '../services/message';
+import {
+    MessageService,
+    Codes
+} from '../services/message';
 import { defaultDenkstrapOptions } from '../denkstrap';
 import { once } from '../utils/helper/once';
 import { ComponentContext, Condition, DenkstrapOptions } from '../index.d';
@@ -57,11 +60,11 @@ export class Loader {
                         .all( this.components.map( component => component.$instance.promise ) )
                         .then( resolve )
                         .catch( err => {
-                            this.messageService.error( LoaderComponentInitFailed, err );
+                            this.messageService.error( Codes.LoaderComponentInitFailed, err );
                         } );
                 } )
                 .catch( err => {
-                    this.messageService.error( LoaderDynamicImportFailed, err );
+                    this.messageService.error( Codes.LoaderDynamicImportFailed, err );
                 } );
         } );
     }
@@ -202,7 +205,7 @@ export class Loader {
                     )
                 )
                 .catch( err => {
-                    this.messageService.error( LoaderDynamicImportFailed , err );
+                    this.messageService.error( Codes.LoaderDynamicImportFailed, err );
                 } )
         );
     }

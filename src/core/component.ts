@@ -1,4 +1,4 @@
-import { ComponentInitFailed, MessageService } from '../services/message';
+import { Codes, MessageService } from '../services/message';
 import { ComponentContext } from '../index.d';
 
 /**
@@ -53,7 +53,7 @@ export class Component implements ComponentContext {
 
         this.promise = new Promise( ( resolve: () => any, reject: ( err: Error ) => any ) => {
             this.build().then( () => resolve() ).catch( err => reject( err ) );
-        } ).catch( err => messageService.error( ComponentInitFailed, err, context ) );
+        } ).catch( err => messageService.error( Codes.ComponentInitFailed, err, context ) );
     }
 
     /**

@@ -2,11 +2,18 @@
 // MessageCodes
 //---------------------------------------------
 
-// Loader
-export const LoaderDynamicImportFailed = 'LoaderDynamicImportFailed';
-export const LoaderComponentInitFailed = 'LoaderComponentInitFailed';
-// Component
-export const ComponentInitFailed = 'ComponentInitFailed';
+export enum Codes {
+    // Loader
+    LoaderDynamicImportFailed = 'LoaderDynamicImportFailed',
+    LoaderComponentInitFailed = 'LoaderComponentInitFailed',
+
+    // Component
+    ComponentInitFailed = 'ComponentInitFailed',
+
+    // Condition
+    ConditionNotDefined = 'ConditionNotDefined',
+    ConditionExecutionFailed = 'ConditionExecutionFailed'
+}
 
 
 //---------------------------------------------
@@ -15,13 +22,16 @@ export const ComponentInitFailed = 'ComponentInitFailed';
 
 export const messages: { [key: string]: string } = {
     // Loader
-    [LoaderDynamicImportFailed]: 'Dynamic component import failed',
-    [LoaderComponentInitFailed]: 'Component initialization failed',
+    [Codes.LoaderDynamicImportFailed]: 'Dynamic component import failed',
+    [Codes.LoaderComponentInitFailed]: 'Component initialization failed',
 
     // Component
-    [ComponentInitFailed]: 'Error initializing component'
-};
+    [Codes.ComponentInitFailed]: 'Error initializing component',
 
+    // Condition
+    [Codes.ConditionNotDefined]: 'Condition is not defined',
+    [Codes.ConditionExecutionFailed]: 'Error executing condition'
+};
 
 //---------------------------------------------
 // URLs
@@ -55,7 +65,7 @@ export class MessageService {
      * @param {Array} data
      * @returns {Array}
      */
-    logMessage( type: string, code: string, ...data: any[] ) {
+    logMessage( type: string, code: Codes, ...data: any[] ) {
         const msgPart1 = `denkstrap ${type}:`;
         const msgPart2 = `[${code}] ${messages[ code ]}`;
         const msgPart3 = `\n${ERROR_PAGE}${code}`;
@@ -76,7 +86,7 @@ export class MessageService {
      * @param {String} code MessageCode
      * @param {*} data Any additional arguments will be added to the log message
      */
-    error( code: string, ...data: any[] ) {
+    error( code: Codes, ...data: any[] ) {
         console.error( ...this.logMessage( 'error', code, ...data ) );
     }
 
@@ -85,7 +95,7 @@ export class MessageService {
      * @param {String} code MessageCode
      * @param {*} data Any additional arguments will be added to the log message
      */
-    warn( code: string, ...data: any[] ) {
+    warn( code: Codes, ...data: any[] ) {
         console.warn( ...this.logMessage( 'warning', code, ...data ) );
     }
 
@@ -94,7 +104,7 @@ export class MessageService {
      * @param {String} code MessageCode
      * @param {*} data Any additional arguments will be added to the log message
      */
-    info( code: string, ...data: any[] ) {
+    info( code: Codes, ...data: any[] ) {
         console.info( ...this.logMessage( 'warning', code, ...data ) );
     }
 

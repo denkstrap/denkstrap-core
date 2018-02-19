@@ -31,7 +31,12 @@ export class Component implements ComponentContext {
         return [ 'ready', 'events' ];
     }
 
-    defaults() {
+    /**
+     * Default settings
+     * A Component can provide default settings which will be updated by the data-options
+     * when the component will be build
+     */
+    defaults(): Object {
         return {};
     }
 

@@ -19,7 +19,6 @@ export class Component implements ComponentContext {
     };
     $options: {};
 
-
     private promise: Promise<never | any>;
 
     /**

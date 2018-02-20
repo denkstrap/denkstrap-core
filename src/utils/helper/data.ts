@@ -9,8 +9,14 @@
  *                           keys of the result object
  * @returns {Object}         An object with all prefixed data attributes
  */
-export function data( node: Element, name: string, prefix?: string ) {
-    let dataAttributes: { [key: string]: {} | string } = {};
+export function data( node: Element | null, name: string, prefix?: string ): { [key: string]: any } {
+
+    if ( node === null ) {
+        // TODO: ErrorMessage
+        return {};
+    }
+
+    let dataAttributes: { [key: string]: {} } = {};
 
     prefix = 'data-' + ((prefix === undefined) ? '' : (prefix + '-'));
     name = prefix + ((name === undefined) ? '*' : name);

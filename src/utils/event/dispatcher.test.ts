@@ -9,7 +9,7 @@ const TEST_ARG2_CONTENT = 'testArg2Content';
 
 describe( 'EventSystem', () => {
     test( 'to be an instance of Dispatcher', () => {
-        expect( EventSystem instanceof Dispatcher ).toBe( true );
+        expect( EventSystem ).toBeInstanceOf( Dispatcher );
     } );
 } );
 

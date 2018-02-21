@@ -23,7 +23,7 @@ export enum ErrorCodes {
 // Messages
 //---------------------------------------------
 
-export const messages: { [key: string]: string } = {
+export const errorMessages: { [key: string]: string } = {
     // Loader
     [ ErrorCodes.LoaderDynamicImportFailed ]: 'Dynamic component import failed',
     [ ErrorCodes.LoaderComponentInitFailed ]: 'Component initialization failed',
@@ -60,7 +60,7 @@ export const ERROR_PAGE = 'https://github.com/denkstrap/denkstrap/wiki/Errors#';
  */
 function logMessage( type: string, code: ErrorCodes, ...data: any[] ) {
     const msgPart1 = `denkstrap ${type}:`;
-    const msgPart2 = `[${code}] ${messages[ code ]}`;
+    const msgPart2 = `[${code}] ${errorMessages[ code ]}`;
     const msgPart3 = `\n${ERROR_PAGE}${code}`;
     const msgPart4 = `\n▶`;
     let msg = [];

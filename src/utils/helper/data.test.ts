@@ -87,12 +87,18 @@ describe( 'data', () => {
 
     test( 'to parse JSON values', () => {
         let result = data( TestNode, 'json', 'prefix' );
-        expect( result ).toMatchObject( {json: testObject} );
+        expect( result ).toMatchObject( { json: testObject } );
     } );
 
     test( 'to return an empty object when element not exists', () => {
         let result = data( null, '*' );
         expect( result ).toMatchObject( {} );
+    } );
+
+    test( 'to log an error when element not exists', () => {
+        const spy = jest.spyOn( console, 'error' );
+        data( null, '*' );
+        expect( spy ).toHaveBeenCalled();
     } );
 
     test( 'to return an empty object when attribute not exists', () => {

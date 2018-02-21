@@ -1,9 +1,9 @@
 import { data } from '../utils/helper/data';
 import conditions from '../conditions/index';
 import {
-    MessageService,
-    Codes
-} from '../services/message';
+    ErrorCodes,
+    error
+} from '../utils/message/message';
 import { defaultDenkstrapOptions } from '../denkstrap';
 import { once } from '../utils/helper/once';
 import { ComponentContext, Condition, DenkstrapOptions } from '../index.d';
@@ -33,8 +33,6 @@ export class Loader {
      */
     private queries: Array<Promise<any>> = [];
 
-    private messageService: MessageService;
-
     private promise: Promise<any>;
 
     private conditions: {
@@ -45,7 +43,7 @@ export class Loader {
      * Loader
      * @constructor
      */
-    constructor( options: DenkstrapOptions, messageService?: MessageService ) {
+    constructor( options: DenkstrapOptions ) {
 
         this.options = Object.assign(
             defaultDenkstrapOptions,
@@ -61,8 +59,6 @@ export class Loader {
             ...this.options.conditions
         };
 
-        this.messageService = messageService || new MessageService( this.options );
-
         this.fetchComponents();
 
         this.promise = new Promise( ( resolve, reject ) => {
@@ -73,11 +69,11 @@ export class Loader {
                         .all( this.components.map( component => component.$instance.promise ) )
                         .then( resolve )
                         .catch( err => {
-                            this.messageService.error( Codes.LoaderComponentInitFailed, err );
+                            error( ErrorCodes.LoaderComponentInitFailed, err );
                         } );
                 } )
                 .catch( err => {
-                    this.messageService.error( Codes.LoaderDynamicImportFailed, err );
+                    error( ErrorCodes.LoaderDynamicImportFailed, err );
                 } );
         } );
     }
@@ -119,11 +115,11 @@ export class Loader {
                                 componentObject.$element
                             );
                         } catch ( error ) {
-                            this.messageService.error( Codes.ConditionExecutionFailed, error, componentObject );
+                            error( ErrorCodes.ConditionExecutionFailed, error, componentObject );
                         }
 
                     } else {
-                        this.messageService.error( Codes.ConditionNotDefined, componentObject );
+                        error( ErrorCodes.ConditionNotDefined, componentObject );
                     }
 
                 } else {
@@ -225,7 +221,7 @@ export class Loader {
                     )
                 )
                 .catch( err => {
-                    this.messageService.error( Codes.LoaderDynamicImportFailed, err );
+                    error( ErrorCodes.LoaderDynamicImportFailed, err );
                 } )
         );
     }
@@ -238,7 +234,7 @@ export class Loader {
     constructComponent( components: Array<any>, componentObject: ComponentContext ) {
 
         components.forEach( ( Component: any ) => {
-            componentObject.$instance = new Component( componentObject, this.messageService );
+            componentObject.$instance = new Component( componentObject );
         } );
 
     }

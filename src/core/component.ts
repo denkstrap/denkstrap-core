@@ -1,4 +1,4 @@
-import { Codes, MessageService } from '../services/message';
+import { ErrorCodes, error } from '../utils/message/message';
 import { ComponentContext } from '../index.d';
 
 /**
@@ -41,10 +41,9 @@ export class Component implements ComponentContext {
 
     /**
      * @param {ComponentContext} context Loader ComponentContext
-     * @param {MessageService} messageService
      * @constructs
      */
-    constructor( context: ComponentContext, messageService: MessageService ) {
+    constructor( context: ComponentContext ) {
         Object.assign( this, context );
 
         this.$options = {
@@ -57,7 +56,7 @@ export class Component implements ComponentContext {
 
         this.promise = new Promise( ( resolve: () => any, reject: ( err: Error ) => any ) => {
             this.build().then( () => resolve() ).catch( err => reject( err ) );
-        } ).catch( err => messageService.error( Codes.ComponentInitFailed, err, context ) );
+        } ).catch( err => error( ErrorCodes.ComponentInitFailed, err, context ) );
     }
 
     /**

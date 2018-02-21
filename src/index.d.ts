@@ -16,7 +16,6 @@
 export as namespace denkstrap;
 
 export interface DenkstrapOptions {
-    simpleLogs: boolean,
     autoInitSelector: string[],
     initializedClass: string,
     context: Element,

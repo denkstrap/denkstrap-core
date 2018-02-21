@@ -45,7 +45,7 @@ export const errorMessages: { [key: string]: string } = {
 
 // The error explanations URL is referenced in the logs
 // MessageCode will be added as #hashtag
-export const ERROR_PAGE = 'https://github.com/denkstrap/denkstrap/wiki/Errors#';
+export const ERROR_PAGE = 'https://github.com/denkstrap/denkstrap/wiki/Error-Codes#';
 
 //---------------------------------------------
 // Error Functions
@@ -61,7 +61,7 @@ export const ERROR_PAGE = 'https://github.com/denkstrap/denkstrap/wiki/Errors#';
 function logMessage( type: string, code: ErrorCodes, ...data: any[] ) {
     const msgPart1 = `denkstrap ${type}:`;
     const msgPart2 = `[${code}] ${errorMessages[ code ]}`;
-    const msgPart3 = `\n${ERROR_PAGE}${code}`;
+    const msgPart3 = `\n${ERROR_PAGE}${code.toLowerCase()}`;
     const msgPart4 = `\n▶`;
     let msg = [];
 

@@ -1,18 +1,20 @@
+import { ErrorCodes, error } from '../message/message';
+
 /**
  * The data helper
  *
  * Helps to deal with HTML data-Attributes.
  *
- * @param {Element} node     HTMLElement to get the data from
+ * @param {Element} element     HTMLElement to get the data from
  * @param {String}  [name]     Name from the data attribute. Can contain wildcards.
  * @param {String}  [prefix] Name for a prefix, which will be excluded from the
  *                           keys of the result object
  * @returns {Object}         An object with all prefixed data attributes
  */
-export function data( node: Element | null, name = '*', prefix?: string ): { [key: string]: any } {
+export function data( element: Element | null, name = '*', prefix?: string ): { [key: string]: any } {
 
-    if ( node === null ) {
-        // TODO: ErrorMessage
+    if ( !element ) {
+        error( ErrorCodes.DataHelperElementNotDefined, name, prefix );
         return {};
     }
 
@@ -22,7 +24,7 @@ export function data( node: Element | null, name = '*', prefix?: string ): { [ke
     name = prefix + name;
 
     Array.prototype
-        .filter.call( node.attributes, function( item: Attr ) {
+        .filter.call( element.attributes, function( item: Attr ) {
         return new RegExp( '^' + name.split( '*' ).join( '.*' ) + '$' ).test( item.nodeName );
     } )
         .forEach( function( item: Attr ) {

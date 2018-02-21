@@ -78,7 +78,6 @@ describe( 'Component', () => {
 
         class TestComponent8 extends Component {
             ready() {
-                console.log( 'ready' );
                 readyMock();
             }
 

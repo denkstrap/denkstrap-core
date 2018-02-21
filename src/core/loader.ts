@@ -144,8 +144,7 @@ export class Loader {
      * @param     {Element} [scope]           Element scope to search for component
      * @param     {Object}      [parentComponent] Object with the parents {@Link Loader.getComponentContextObject}
      * @generates {Object}                        componentObject Object {@Link Loader.getComponentContextObject}
-     */
-    * componentParser( scope: Element = this.options.context, parentComponent?: ComponentContext ): IterableIterator<ComponentContext> {
+     */* componentParser( scope: Element = this.options.context, parentComponent?: ComponentContext ): IterableIterator<ComponentContext> {
 
         let match: Element | null;
         let selector: string = this.options.autoInitSelector

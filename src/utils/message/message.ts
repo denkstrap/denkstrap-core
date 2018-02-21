@@ -25,18 +25,18 @@ export enum ErrorCodes {
 
 export const messages: { [key: string]: string } = {
     // Loader
-    [ErrorCodes.LoaderDynamicImportFailed]: 'Dynamic component import failed',
-    [ErrorCodes.LoaderComponentInitFailed]: 'Component initialization failed',
+    [ ErrorCodes.LoaderDynamicImportFailed ]: 'Dynamic component import failed',
+    [ ErrorCodes.LoaderComponentInitFailed ]: 'Component initialization failed',
 
     // Component
-    [ErrorCodes.ComponentInitFailed]: 'Error initializing component',
+    [ ErrorCodes.ComponentInitFailed ]: 'Error initializing component',
 
     // Condition
-    [ErrorCodes.ConditionNotDefined]: 'Condition is not defined',
-    [ErrorCodes.ConditionExecutionFailed]: 'Error executing condition',
+    [ ErrorCodes.ConditionNotDefined ]: 'Condition is not defined',
+    [ ErrorCodes.ConditionExecutionFailed ]: 'Error executing condition',
 
     // Helper
-    [ErrorCodes.DataHelperElementNotDefined]: 'Element not defined'
+    [ ErrorCodes.DataHelperElementNotDefined ]: 'Element not defined'
 };
 
 //---------------------------------------------

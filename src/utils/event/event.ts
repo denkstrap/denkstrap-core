@@ -19,10 +19,10 @@ export class Event {
      * @constructor
      */
     constructor( name: string, namespace: string[], callback: () => any, once?: boolean ) {
-        this.type       = name;
-        this.namespace  = namespace;
-        this.callback   = callback;
-        this.once       = once || false;
+        this.type = name;
+        this.namespace = namespace;
+        this.callback = callback;
+        this.once = once || false;
     }
 
     /**
@@ -51,7 +51,7 @@ export class Event {
      * @param {String} [subscribedNamespace] Only for function recursion!
      * @returns {boolean} true or false depending if the event has the namespace
      */
-    hasNamespace( namespace: string[], subscribedNamespace?: string[] ) : boolean {
+    hasNamespace( namespace: string[], subscribedNamespace?: string[] ): boolean {
         let pNS: string[] = namespace.slice( 0 );
         let sNS: string[] = subscribedNamespace || this.namespace.slice( 0 );
 
@@ -63,7 +63,7 @@ export class Event {
             if ( pNS.length && sNS.length ) {
                 return this.hasNamespace( pNS, sNS );
             } else {
-                return ( pNS.length === sNS.length ) || ( sNS.length > pNS.length );
+                return (pNS.length === sNS.length) || (sNS.length > pNS.length);
             }
         } else {
             return false;

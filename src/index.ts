@@ -6,4 +6,4 @@ export * from './services/breakpointDetection';
 export { default as conditions } from './conditions/index';
 export { default as Event } from './utils/event/index';
 export { default as helper } from './utils/helper/index';
-export { default as message }from './utils/message/index';
+export { default as message } from './utils/message/index';

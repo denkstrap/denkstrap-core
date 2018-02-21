@@ -1,7 +1,7 @@
 import { inViewport } from './in-viewport';
 import { Condition } from '../index.d';
 
-const conditions: { [key: string] : Condition } = {
+const conditions: { [key: string]: Condition } = {
     inViewport
 };
 

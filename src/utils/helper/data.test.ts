@@ -6,6 +6,7 @@ const testAttributes = {
     t1: 't1',
     json: JSON.stringify( testObject )
 };
+
 const testAttributesWithPrefix = {
     'prefix-t1': 't1',
     'prefix-json': JSON.stringify( testObject )

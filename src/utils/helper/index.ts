@@ -4,4 +4,4 @@ import { once } from './once';
 export default {
     data,
     once
-}
+};

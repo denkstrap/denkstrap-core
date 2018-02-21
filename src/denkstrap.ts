@@ -15,7 +15,7 @@ export const defaultDenkstrapOptions = <DenkstrapOptions>{
     conditions: {}
 };
 
-export class Denkstrap  {
+export class Denkstrap {
 
     options: DenkstrapOptions;
     breakpointDetection: BreakpointDetection;

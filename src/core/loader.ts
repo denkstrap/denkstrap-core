@@ -1,9 +1,6 @@
 import { data } from '../utils/helper/data';
 import conditions from '../conditions/index';
-import {
-    ErrorCodes,
-    error
-} from '../utils/message/message';
+import { ErrorCodes, error } from '../utils/message/message';
 import { defaultDenkstrapOptions } from '../denkstrap';
 import { once } from '../utils/helper/once';
 import { ComponentContext, Condition, DenkstrapOptions } from '../index.d';

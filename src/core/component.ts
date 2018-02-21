@@ -51,8 +51,7 @@ export class Component implements ComponentContext {
             ...context.$data.options
         };
 
-        // TODO: Hier scheint es noch eine RaceCondition zu geben
-        // this.registerAsChild( context );
+        this.registerAsChild( context );
 
         this.promise = new Promise( ( resolve: () => any, reject: ( err: Error ) => any ) => {
             this.build().then( () => resolve() ).catch( err => reject( err ) );
@@ -79,17 +78,8 @@ export class Component implements ComponentContext {
      */
     registerAsChild( self: ComponentContext ) {
         if ( this.$parentComponent ) {
-            this.$parentComponent.$instance.registerChild( self );
+            this.$parentComponent.$children.push( self )
         }
-    }
-
-    /**
-     * Registers a child
-     * @param child
-     */
-    registerChild( child: ComponentContext ) {
-        this.$children.push( child );
-        // TODO: some magic, for example livecycle methods?
     }
 
 }

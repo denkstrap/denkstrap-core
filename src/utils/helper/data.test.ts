@@ -50,6 +50,11 @@ describe( 'data', () => {
         expect( result ).toMatchObject( testResultObjectComplete );
     } );
 
+    test( 'to get all data attributes from a node if no name is specified', () => {
+        let result = data( TestNode );
+        expect( result ).toMatchObject( testResultObjectComplete );
+    } );
+
     test( 'to get all to a regex matching data attributes from a node', () => {
         let result = data( TestNode, '*js*' );
         expect( result ).toMatchObject( { json: testObject, 'prefix-json': testObject } );

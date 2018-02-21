@@ -19,49 +19,55 @@ const ComponentContext = {
     $children: []
 };
 
-class TestComponent extends Component {
-    defaults() {
-        return {
-            test: true
-        };
-    }
-}
+const defaults = {
+    test: true
+};
 
 describe( 'Component', () => {
 
     test( 'to be extensible', () => {
-        expect( TestComponent.prototype ).toBeInstanceOf( Component );
+        class TestComponent1 extends Component {}
+        expect( TestComponent1.prototype ).toBeInstanceOf( Component );
     } );
 
     test( 'to register itself at its parentComponent', () => {
-        new TestComponent( ComponentContext );
+        class TestComponent2 extends Component {}
+        new TestComponent2( ComponentContext );
         expect( ParentComponentContext.$children ).toContain( ComponentContext );
     } );
 
     test( 'to have a ComponentContext', () => {
-        const instance = new TestComponent( ComponentContext );
+        class TestComponent3 extends Component {}
+        const instance = new TestComponent3( ComponentContext );
         expect( instance ).toMatchObject( ComponentContext );
     } );
 
     test( 'to transfer $data.options to $options', () => {
-        const instance = new TestComponent( ComponentContext );
+        class TestComponent4 extends Component {}
+        const instance = new TestComponent4( ComponentContext );
         expect( instance.$options ).toHaveProperty( 'foo' );
     } );
 
     test( 'to extend defaults() with $data.options to $options', () => {
-        const instance = new TestComponent( ComponentContext );
-        expect( instance.$options ).toHaveProperty( 'foo' );
-        expect( instance.$options ).toHaveProperty( 'test' );
+        class TestComponent5 extends Component {
+            defaults() {
+                return defaults;
+            }
+        }
+        const instance = new TestComponent5( ComponentContext );
+        expect( instance.$options ).toMatchObject( { ...defaults, ...ComponentContext.$data.options } );
     } );
 
     test( 'to have a build chain', () => {
-        const instance = new TestComponent( ComponentContext );
+        class TestComponent6 extends Component {}
+        const instance = new TestComponent6( ComponentContext );
         expect( instance.chain() ).toEqual( [ 'ready', 'events' ] );
     } );
 
     test( 'to resolve the promise property when the build chain has finished execution', () => {
+        class TestComponent7 extends Component {}
         return new Promise( ( resolve ) => {
-            const instance = new TestComponent( ComponentContext );
+            const instance = new TestComponent7( ComponentContext );
             instance.then( resolve );
         } );
     } );
@@ -70,7 +76,7 @@ describe( 'Component', () => {
         const readyMock = jest.fn();
         const eventsMock = jest.fn();
 
-        class TestComponent7 extends Component {
+        class TestComponent8 extends Component {
             ready() {
                 console.log( 'ready' );
                 readyMock();
@@ -81,7 +87,7 @@ describe( 'Component', () => {
             }
         }
 
-        const instance = new TestComponent7( ComponentContext );
+        const instance = new TestComponent8( ComponentContext );
 
         instance.then( () => {
             expect( readyMock ).toHaveBeenCalledTimes( 1 );

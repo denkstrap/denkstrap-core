@@ -8,7 +8,7 @@ import { ComponentContext } from '../index.d';
  *
  * @class Module
  */
-export class Component implements ComponentContext {
+export abstract class Component implements ComponentContext {
 
     $element: Element;
     $components: string[];
@@ -20,6 +20,8 @@ export class Component implements ComponentContext {
     $options: {};
 
     private promise: Promise<never | any>;
+
+    then: Function;
 
     /**
      * Default build chain
@@ -56,6 +58,8 @@ export class Component implements ComponentContext {
         this.promise = new Promise( ( resolve: () => any, reject: ( err: Error ) => any ) => {
             this.build().then( () => resolve() ).catch( err => reject( err ) );
         } ).catch( err => error( ErrorCodes.ComponentInitFailed, err, context ) );
+
+        this.then = this.promise.then.bind( this.promise );
     }
 
     /**
@@ -76,7 +80,7 @@ export class Component implements ComponentContext {
     /**
      * Register as child of the given parentComponent
      */
-    registerAsChild( self: ComponentContext ) {
+    private registerAsChild( self: ComponentContext ) {
         if ( this.$parentComponent ) {
             this.$parentComponent.$children.push( self )
         }

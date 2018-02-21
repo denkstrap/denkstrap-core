@@ -92,12 +92,13 @@ describe( 'data', () => {
     } );
 
     test( 'to return an empty object when element not exists', () => {
+        jest.spyOn( console, 'error' ).mockImplementation( jest.fn() );
         let result = data( null, '*' );
         expect( result ).toMatchObject( {} );
     } );
 
     test( 'to log an error when element not exists', () => {
-        const spy = jest.spyOn( console, 'error' );
+        const spy = jest.spyOn( console, 'error' ).mockImplementation( jest.fn() );
         data( null, '*' );
         expect( spy ).toHaveBeenCalled();
     } );

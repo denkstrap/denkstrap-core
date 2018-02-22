@@ -1,16 +1,18 @@
 {
     "extends": "eslint:recommended",
+    "parser": "typescript-eslint-parser",
     "parserOptions": {
-        "ecmaVersion": 2017,
+        "ecmaVersion" :6,
         "sourceType": "module"
     },
+    "plugins": [
+        "typescript"
+    ],
     "env": {
         "es6": true,
         "node": true,
         "browser": true,
-        "amd": true,
-        "jest": true,
-        "jquery": true
+        "jest": true
     },
     "globals": {
         "sinon": true,
@@ -33,7 +35,7 @@
         "no-caller": "error",
         "semi": ["error", "always"],
         "no-loop-func": "error",
-        "no-undef": "error",
+        "no-undef": "off",
         "quotes": ["error", "single"],
         "linebreak-style": ["error", "unix"],
         "camelcase": ["error", {"properties": "never"}],

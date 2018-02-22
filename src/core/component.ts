@@ -12,7 +12,7 @@ export abstract class Component implements ComponentContext {
 
     $element: Element;
     $components: string[];
-    $parentComponent: ComponentContext;
+    $parentComponent?: ComponentContext;
     $children: ComponentContext[];
     $data: {
         options?: {}
@@ -46,7 +46,13 @@ export abstract class Component implements ComponentContext {
      * @constructs
      */
     constructor( context: ComponentContext ) {
-        Object.assign( this, context );
+        this.$element = context.$element;
+        this.$data = context.$data;
+        this.$components = context.$components;
+        this.$parentComponent = context.$parentComponent;
+        this.$children = [];
+
+        // Object.assign( this, context );
 
         this.$options = {
             ...this.defaults(),

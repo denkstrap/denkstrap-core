@@ -28,7 +28,7 @@ export class Denkstrap {
         this.loader = new Loader( this.options );
 
         if ( this.options.expose ) {
-            (<any>window).denkstrap = this;
+            ( <any>window ).denkstrap = this;
         }
 
     }

@@ -31,9 +31,12 @@ describe( 'Component', () => {
     } );
 
     test( 'to register itself at its parentComponent', () => {
-        class TestComponent2 extends Component {}
-        new TestComponent2( ComponentContext );
+        class TestComponent2_1 extends Component {}
+        new TestComponent2_1( ComponentContext );
+        class TestComponent2_2 extends Component {}
+        new TestComponent2_2( { ...ComponentContext, ...{ $parentComponent: undefined } } );
         expect( ParentComponentContext.$children ).toContain( ComponentContext );
+        expect( ParentComponentContext.$children ).toHaveLength( 1 );
     } );
 
     test( 'to have a ComponentContext', () => {

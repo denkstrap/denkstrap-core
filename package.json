@@ -17,7 +17,7 @@
     "test": "jest --coverage",
     "test:ci": "npm run test && cat ./artifacts/coverage/lcov.info | coveralls",
     "test:watch": "jest --watch --coverage",
-    "prepublish": "npm run build"
+    "prepublishOnly": "npm run build"
   },
   "keywords": [
     "denkstrap",

@@ -53,6 +53,10 @@
       "json",
       "node"
     ],
-    "mapCoverage": true
+    "mapCoverage": true,
+    "collectCoverageFrom": [
+      "src/**/*.{ts,tsx}",
+      "!src/**/*.d.ts"
+    ]
   }
 }

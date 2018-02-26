@@ -52,8 +52,6 @@ export abstract class Component implements ComponentContext {
         this.$parentComponent = context.$parentComponent;
         this.$children = [];
 
-        // Object.assign( this, context );
-
         this.$options = {
             ...this.defaults(),
             ...context.$data.options
@@ -61,9 +59,7 @@ export abstract class Component implements ComponentContext {
 
         this.registerAsChild( context );
 
-        this.promise = new Promise( ( resolve: () => any, reject: ( err: Error ) => any ) => {
-            this.build().then( () => resolve() ).catch( err => reject( err ) );
-        } ).catch( err => error( ErrorCodes.ComponentInitFailed, err, context ) );
+        this.promise = this.build().catch( err => error( ErrorCodes.ComponentInitFailed, err, context ) );
 
         this.then = this.promise.then.bind( this.promise );
     }

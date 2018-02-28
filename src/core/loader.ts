@@ -30,7 +30,7 @@ export class Loader {
      */
     private queries: Array<Promise<any>> = [];
 
-    private promise: Promise<any>;
+    promise: Promise<any>;
 
     private conditions: {
         [key: string]: Condition
@@ -42,10 +42,10 @@ export class Loader {
      */
     constructor( options?: CustomDenkstrapOptions ) {
 
-        this.options = Object.assign(
-            defaultDenkstrapOptions,
-            options
-        );
+        this.options = {
+            ...defaultDenkstrapOptions,
+            ...options
+        };
 
         // TODO: Entscheidung offen:
         // Bekommt jeder Loader ein eigenes Set von Conditions
@@ -71,6 +71,7 @@ export class Loader {
                 } )
                 .catch( err => {
                     error( ErrorCodes.LoaderDynamicImportFailed, err );
+                    reject( ErrorCodes.LoaderDynamicImportFailed );
                 } );
         } );
     }
@@ -111,8 +112,8 @@ export class Loader {
                                 once( this.loadComponent.bind( this, componentObject ) ),
                                 componentObject.$element
                             );
-                        } catch ( error ) {
-                            error( ErrorCodes.ConditionExecutionFailed, error, componentObject );
+                        } catch ( err ) {
+                            error( ErrorCodes.ConditionExecutionFailed, err, componentObject );
                         }
 
                     } else {

@@ -203,16 +203,16 @@ export class Loader {
         this.components.push( componentObject );
 
         // Load dependencies with System.import.
-        const loadedDependencies: Promise<any>[] = componentObject.$components.map( component =>
-            import( `components/${component}` )
+        const imports: Promise<any>[] = componentObject.$components.map( component =>
+            Loader.import( `components/${component}` )
         );
 
         this.queries.push(
             Promise
-                .all( loadedDependencies )
+                .all( imports )
                 .then(
                     components => this.constructComponent(
-                        [ ...components.map( c => c.default ) ],
+                        components.map( c => c.default ),
                         componentObject
                     )
                 )
@@ -220,6 +220,14 @@ export class Loader {
                     error( ErrorCodes.LoaderDynamicImportFailed, err );
                 } )
         );
+    }
+
+    /**
+     * Import function
+     * @param {string} path
+     */
+    static import( path: string ) {
+        return import( path );
     }
 
     /**

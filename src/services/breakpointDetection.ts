@@ -69,7 +69,6 @@ export default class BreakpointDetection {
                     target.dispatchEvent( breakpointEvent );
                 }
             }
-
         } );
     }
 

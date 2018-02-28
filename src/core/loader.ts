@@ -3,7 +3,7 @@ import conditions from '../conditions/index';
 import { ErrorCodes, error } from '../utils/message/message';
 import { defaultDenkstrapOptions } from '../denkstrap';
 import { once } from '../utils/helper/once';
-import { ComponentContext, Condition, DenkstrapOptions } from '../index.d';
+import { ComponentContext, Condition, CustomDenkstrapOptions, DenkstrapOptions } from '../index.d';
 
 
 /**
@@ -40,7 +40,7 @@ export class Loader {
      * Loader
      * @constructor
      */
-    constructor( options: DenkstrapOptions ) {
+    constructor( options?: CustomDenkstrapOptions ) {
 
         this.options = Object.assign(
             defaultDenkstrapOptions,

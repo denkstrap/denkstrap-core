@@ -15,6 +15,18 @@
 
 export as namespace denkstrap;
 
+export interface CustomDenkstrapOptions {
+    autoInitSelector?: string[],
+    initializedClass?: string,
+    context?: Element,
+    expose?: boolean,
+    breakpointDetectionSelector?: string,
+    defaultBreakpoint?: string,
+    conditions?: {
+        [key: string]: Condition
+    }
+}
+
 export interface DenkstrapOptions {
     autoInitSelector: string[],
     initializedClass: string,

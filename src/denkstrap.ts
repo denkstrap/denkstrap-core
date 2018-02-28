@@ -1,5 +1,5 @@
 import { Loader } from './core/loader';
-import { DenkstrapOptions } from './index.d';
+import { CustomDenkstrapOptions, DenkstrapOptions } from './index.d';
 import BreakpointDetection from './services/breakpointDetection';
 
 export const defaultDenkstrapOptions = <DenkstrapOptions>{
@@ -21,7 +21,7 @@ export class Denkstrap {
     breakpointDetection: BreakpointDetection;
     loader: Loader;
 
-    constructor( customDenkstrapOptions: DenkstrapOptions ) {
+    constructor( customDenkstrapOptions: CustomDenkstrapOptions ) {
 
         this.options = { ...defaultDenkstrapOptions, ...customDenkstrapOptions };
         this.breakpointDetection = new BreakpointDetection( this.options );

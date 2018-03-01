@@ -205,7 +205,7 @@ export class Loader {
 
         // Load dependencies with System.import.
         const imports: Promise<any>[] = componentObject.$components.map( component =>
-            Loader.import( `components/${component}` )
+            Loader.import( component )
         );
 
         this.queries.push(
@@ -228,7 +228,7 @@ export class Loader {
      * @param {string} path
      */
     static import( path: string ) {
-        return import( path );
+        return import( `components/${path}` );
     }
 
     /**

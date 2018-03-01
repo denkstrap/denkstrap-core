@@ -40,15 +40,15 @@ beforeEach( () => {
     conditions.test = jest.fn();
 
     components = {
-        'components/modules/test/component1': class MTC1 extends Component {
+        'modules/test/component1': class MTC1 extends Component {
         },
-        'components/modules/test/component1.1': class MTC11 extends Component {
+        'modules/test/component1.1': class MTC11 extends Component {
         },
-        'components/modules/test/component1.2': class MTC12 extends Component {
+        'modules/test/component1.2': class MTC12 extends Component {
         },
-        'components/modules/test/component1.2.1': class MTC121 extends Component {
+        'modules/test/component1.2.1': class MTC121 extends Component {
         },
-        'components/modules/test/component2': class MTC2 extends Component {
+        'modules/test/component2': class MTC2 extends Component {
         }
     };
 } );
@@ -182,7 +182,7 @@ describe( 'Loader', () => {
 
     test( 'to log an error if dynamic importing a component failed', () => {
         consoleError.mockClear();
-        delete components[ 'components/modules/test/component1' ];
+        delete components[ 'modules/test/component1' ];
         const loader = new Loader();
 
         expect.assertions( 1 );
@@ -197,7 +197,7 @@ describe( 'Loader', () => {
 
     test( 'to log an error if the initialization of a component failed', () => {
         consoleError.mockClear();
-        components[ 'components/modules/test/component1' ] = class MTC1_new extends Component {
+        components[ 'modules/test/component1' ] = class MTC1_new extends Component {
             ready() {
                 return new Promise( ( resolve, reject ) => {
                     reject();

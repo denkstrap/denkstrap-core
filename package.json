@@ -3,12 +3,13 @@
   "version": "3.0.0-aplha.1",
   "description": "denkstrap core package",
   "repository": "github:denkstrap/denkstrap-core",
-  "main": "dist/esm/index.js",
+  "main": "dist/umd/index.js",
   "module": "dist/esm/index.js",
-  "unpkg": "dist/esm/index.js",
-  "jsdeliver": "dist/esm/index.js",
+  "es2015": "dist/esnext/index.js",
+  "typings": "dist/index.d.ts",
   "files": [
-    "dist/**/*.js"
+    "dist/**/*.js",
+    "src/index.d.ts"
   ],
   "scripts": {
     "dev": "echo \"Error: no dev task specified yet\" && exit 1",

@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
     "module": "esnext",
-    "target": "es5",
+    "target": "ESNext",
     "sourceMap": true,
-    "outDir": "./dist/esm",
+    "outDir": "./dist/esnext",
     "strict": true,
     "downlevelIteration": true,
     "lib": [

@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
-    "module": "esnext",
+    "module": "umd",
     "target": "es5",
     "sourceMap": true,
-    "outDir": "./dist/esm",
+    "outDir": "./dist/umd",
     "strict": true,
     "downlevelIteration": true,
     "lib": [

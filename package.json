@@ -1,5 +1,5 @@
 {
-  "name": "denkstrap-core",
+  "name": "@denkstrap/core",
   "version": "3.0.0-aplha.1",
   "description": "denkstrap core package",
   "repository": "github:denkstrap/denkstrap-core",

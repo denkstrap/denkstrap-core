@@ -10,7 +10,7 @@ import { BREAKPOINT_CHANGE_EVENT } from '../core/events';
  *
  * @class BreakpointDetection
  */
-export default class BreakpointDetection {
+export class BreakpointDetection {
 
     private options: DenkstrapOptions;
     private currentBreakpoint: string;

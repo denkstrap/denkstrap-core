@@ -1,6 +1,6 @@
 import { Loader } from './core/loader';
 import { CustomDenkstrapOptions, DenkstrapOptions } from './index.d';
-import BreakpointDetection from './services/breakpointDetection';
+import { BreakpointDetection } from './services/breakpointDetection';
 
 export const defaultDenkstrapOptions = <DenkstrapOptions>{
     autoInitSelector: [

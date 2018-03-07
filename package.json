@@ -20,7 +20,7 @@
     "release": "echo \"Error: no release task specified yet\" && exit 1",
     "eslint": "eslint src/**",
     "eslint:fix": "eslint src/** --fix",
-    "test": "jest",
+    "test": "jest --coverage",
     "test:ci": "npm run test && cat ./artifacts/coverage/lcov.info | coveralls",
     "test:watch": "jest --watch --coverage",
     "prepublishOnly": "npm run build"

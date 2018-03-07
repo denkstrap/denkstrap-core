@@ -62,7 +62,7 @@ function logMessage( type: string, code: ErrorCodes, ...data: any[] ) {
     const msgPart1 = `denkstrap ${type}:`;
     const msgPart2 = `[${code}] ${errorMessages[ code ]}`;
     const msgPart3 = `\n${ERROR_PAGE}${code.toLowerCase()}`;
-    const msgPart4 = `\n▶`;
+    const msgPart4 = '\n▶';
     let msg = [];
 
     if ( process.env.NODE_ENV === 'production' ) {

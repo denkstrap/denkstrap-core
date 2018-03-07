@@ -57,12 +57,12 @@ export class BreakpointDetection {
                 Event.trigger( BREAKPOINT_CHANGE_EVENT, [ breakpoint ] );
 
                 let breakpointEvent = new CustomEvent(
-                    BREAKPOINT_CHANGE_EVENT,
-                    {
-                        detail: {
-                            breakpoint: breakpoint
-                        }
-                    } ),
+                        BREAKPOINT_CHANGE_EVENT,
+                        {
+                            detail: {
+                                breakpoint: breakpoint
+                            }
+                        } ),
                     targets = document.querySelectorAll( this.options.breakpointDetectionSelector );
 
                 for ( let target of targets ) {

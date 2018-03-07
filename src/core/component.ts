@@ -72,7 +72,7 @@ export abstract class Component implements ComponentContext {
         let lastResult: any;
 
         for ( let nextMethodName of chain ) {
-            let nextMethod: () => any = (<any>this)[ nextMethodName ];
+            let nextMethod: () => any = ( <any> this )[ nextMethodName ];
             if ( typeof nextMethod === 'function' ) {
                 lastResult = await nextMethod.call( this, lastResult );
             }
@@ -84,7 +84,7 @@ export abstract class Component implements ComponentContext {
      */
     private registerAsChild( self: ComponentContext ) {
         if ( this.$parentComponent ) {
-            this.$parentComponent.$children.push( self )
+            this.$parentComponent.$children.push( self );
         }
     }
 

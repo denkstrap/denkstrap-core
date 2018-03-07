@@ -6,7 +6,7 @@ import { Event } from './event';
  */
 export class Dispatcher {
     private _events: {
-        [key: string]: (Event | null)[]
+        [key: string]: ( Event | null )[]
     };
 
     /**
@@ -41,7 +41,7 @@ export class Dispatcher {
     subscribeEvent( eventName: string, callback: () => any, once?: boolean ) {
         let name = Dispatcher.splitName( eventName );
         let target = this._events[ name.name ] ||
-            (this._events[ name.name ] = []);
+            ( this._events[ name.name ] = [] );
 
         target.push( new Event( name.name, name.namespace, callback, once ) );
     }

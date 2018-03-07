@@ -63,7 +63,7 @@ export class Event {
             if ( pNS.length && sNS.length ) {
                 return this.hasNamespace( pNS, sNS );
             } else {
-                return (pNS.length === sNS.length) || (sNS.length > pNS.length);
+                return ( pNS.length === sNS.length ) || ( sNS.length > pNS.length );
             }
         } else {
             return false;

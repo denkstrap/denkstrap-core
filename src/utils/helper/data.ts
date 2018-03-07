@@ -20,13 +20,13 @@ export function data( element: Element | null, name = '*', prefix?: string ): { 
 
     let dataAttributes: { [key: string]: {} } = {};
 
-    prefix = 'data-' + ((prefix === undefined) ? '' : (prefix + '-'));
+    prefix = 'data-' + ( ( prefix === undefined ) ? '' : ( prefix + '-' ) );
     name = prefix + name;
 
     Array.prototype
         .filter.call( element.attributes, function( item: Attr ) {
-        return new RegExp( '^' + name.split( '*' ).join( '.*' ) + '$' ).test( item.nodeName );
-    } )
+            return new RegExp( '^' + name.split( '*' ).join( '.*' ) + '$' ).test( item.nodeName );
+        } )
         .forEach( function( item: Attr ) {
             let value: {} | string;
 

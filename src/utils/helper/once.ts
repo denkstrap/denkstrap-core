@@ -7,7 +7,7 @@
  * @param  {*}          context The context in which the function should be called
  * @return {Function}           The once wrapper
  */
-export function once( fn: (() => any) | null, context?: any ) {
+export function once( fn: ( () => any ) | null, context?: any ) {
     let result: any;
 
     return function() {

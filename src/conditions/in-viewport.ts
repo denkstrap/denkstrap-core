@@ -6,11 +6,12 @@ import { Condition } from '../index.d';
  * @param {Function} load Use to load module
  * @param {Element} element Element on which the module was initialized
  * @type {Function}
- * @implements Condition
+ * @implements {Condition}
  */
 export const inViewport: Condition = ( load, element ) => {
 
-    const handleIntersect: IntersectionObserverCallback = ( entries: IntersectionObserverEntry[], observer: IntersectionObserver ) => {
+    const handleIntersect: IntersectionObserverCallback = ( entries: IntersectionObserverEntry[],
+        observer: IntersectionObserver ) => {
         entries.forEach( ( entry: IntersectionObserverEntry ) => {
             if ( entry.isIntersecting ) {
                 observer.unobserve( entry.target );

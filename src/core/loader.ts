@@ -38,6 +38,7 @@ export class Loader {
 
     /**
      * Loader
+     * @param {CustomDenkstrapOptions} [options] options
      * @constructor
      */
     constructor( options?: CustomDenkstrapOptions ) {
@@ -142,7 +143,8 @@ export class Loader {
      * @param     {Element} [scope]           Element scope to search for component
      * @param     {Object}      [parentComponent] Object with the parents {@Link Loader.getComponentContextObject}
      * @generates {Object}                        componentObject Object {@Link Loader.getComponentContextObject}
-     */* componentParser( scope: Element = this.options.context, parentComponent?: ComponentContext ): IterableIterator<ComponentContext> {
+     */* componentParser( scope: Element = this.options.context,
+        parentComponent?: ComponentContext ): IterableIterator<ComponentContext> {
 
         let match: Element | null;
         let selector: string = this.options.autoInitSelector
@@ -166,8 +168,9 @@ export class Loader {
 
     /**
      * Get components informations
-     * @param $element Element
-     * @param [$parentComponent] Parent Component
+     * @param {Element} $element
+     * @param {ComponentContext} [$parentComponent] Parent Component
+     * @returns {Object}
      */
     static getComponentContextObject( $element: Element, $parentComponent?: ComponentContext ): ComponentContext {
 
@@ -197,7 +200,8 @@ export class Loader {
 
     /**
      * Load component
-     * @param componentObject Object with components information {@Link Loader.getComponentContextObject}
+     * @param {ComponentContext} componentObject Object with components information
+     * {@Link Loader.getComponentContextObject}
      */
     loadComponent( componentObject: ComponentContext ) {
 
@@ -225,7 +229,8 @@ export class Loader {
 
     /**
      * Import function
-     * @param {string} path
+     * @param {String} path
+     * @returns {String}
      */
     static import( path: string ) {
         return import( `components/${path}` );

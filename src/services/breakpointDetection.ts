@@ -19,7 +19,7 @@ export class BreakpointDetection {
      * The constructor
      *
      * @method ready
-     * @param [options] The options
+     * @param {DenkstrapOptions} options
      * @constructs
      */
     constructor( options?: DenkstrapOptions ) {

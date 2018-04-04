@@ -55,7 +55,7 @@ export const ERROR_PAGE = 'https://github.com/denkstrap/denkstrap/wiki/Error-Cod
  * Returns the formatted error message ready to log
  * @param {string} type
  * @param {ErrorCodes} code
- * @param data
+ * @param {Array.<any>} data
  * @returns {any[]}
  */
 function logMessage( type: string, code: ErrorCodes, ...data: any[] ) {

@@ -62,7 +62,7 @@ describe( 'Loader', () => {
         } );
 
         // ⚠️ Access private property
-        expect( loader[ 'options' ] ).toMatchObject( {
+        expect( loader.options ).toMatchObject( {
             ...defaultDenkstrapOptions,
             initializedClass: 'bar'
         } );
@@ -88,15 +88,15 @@ describe( 'Loader', () => {
         } );
 
         // ⚠️ Access private property
-        expect( loader[ 'conditions' ] ).toHaveProperty( 'inViewport', conditions.inViewport );
-        expect( loader[ 'conditions' ] ).toHaveProperty( 'test', customConditions.test );
+        expect( loader.conditions ).toHaveProperty( 'inViewport', conditions.inViewport );
+        expect( loader.conditions ).toHaveProperty( 'test', customConditions.test );
     } );
 
     test( 'to resolve Loader.promise when all not conditionally loaded components have been loaded', () => {
         const loader = new Loader();
         const allComponentsResolvedCallback = jest.fn();
 
-        Promise.all( loader[ 'queries' ] ).then( () => {
+        Promise.all( loader.queries ).then( () => {
             Promise.all( loader.components.map( component => component.$instance.promise ) ).then( () => {
                 allComponentsResolvedCallback();
                 expect( allComponentsResolvedCallback ).toHaveBeenCalledTimes( 1 );
@@ -112,7 +112,8 @@ describe( 'Loader', () => {
         const loader = new Loader();
 
         loader.promise.then( () => {
-            expect( document.querySelectorAll( '[data-ds-component].' + loader[ 'options' ].initializedClass ) ).toHaveLength( 5 );
+            expect( document.querySelectorAll( '[data-ds-component].' +
+                loader.options.initializedClass ) ).toHaveLength( 5 );
         } );
 
         expect.assertions( 1 );
@@ -149,7 +150,7 @@ describe( 'Loader', () => {
     test( 'to add queried components to Loader.queries', () => {
         const loader = new Loader();
 
-        expect( loader[ 'queries' ] ).toHaveLength( 4 );
+        expect( loader.queries ).toHaveLength( 4 );
 
         return loader.promise;
     } );
@@ -197,7 +198,7 @@ describe( 'Loader', () => {
 
     test( 'to log an error if the initialization of a component failed', () => {
         consoleError.mockClear();
-        components[ 'modules/test/component1' ] = class MTC1_new extends Component {
+        components[ 'modules/test/component1' ] = class MTC1New extends Component {
             ready() {
                 return new Promise( ( resolve, reject ) => {
                     reject();

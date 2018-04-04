@@ -25,8 +25,7 @@ export abstract class Component implements ComponentContext {
 
     /**
      * Default build chain
-     * @type {Array}
-     * @default
+     * @returns {Array<string>} An array of initializing methods in given order
      */
     chain(): Array<string> {
         return [ 'ready', 'events' ];
@@ -36,6 +35,8 @@ export abstract class Component implements ComponentContext {
      * Default settings
      * A Component can provide default settings which will be updated by the data-options
      * when the component will be build
+     * @default
+     * @returns {Object} Default settings
      */
     defaults(): Object {
         return {};
@@ -81,6 +82,7 @@ export abstract class Component implements ComponentContext {
 
     /**
      * Register as child of the given parentComponent
+     * @param {ComponentContext} self context of child component
      */
     private registerAsChild( self: ComponentContext ) {
         if ( this.$parentComponent ) {

@@ -4,7 +4,7 @@ describe( 'Denkstrap Class', () => {
 
     test( 'exposing to global window', () => {
         const denkstrap = new Denkstrap( { expose: true } );
-        expect( window.denkstrap ).toBe( denkstrap );
+        expect( ( <any>window ).denkstrap ).toBe( denkstrap );
     } );
 
 

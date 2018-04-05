@@ -62,10 +62,12 @@ describe( 'Loader', () => {
         } );
 
         // ⚠️ Access private property
-        expect( loader.options ).toMatchObject( {
+        /* eslint-disable dot-notation */
+        expect( loader[ 'options' ] ).toMatchObject( {
             ...defaultDenkstrapOptions,
             initializedClass: 'bar'
         } );
+        /* eslint-enable dot-notation */
     } );
 
     test( 'load the correct amount of components', () => {
@@ -88,21 +90,23 @@ describe( 'Loader', () => {
         } );
 
         // ⚠️ Access private property
-        expect( loader.conditions ).toHaveProperty( 'inViewport', conditions.inViewport );
-        expect( loader.conditions ).toHaveProperty( 'test', customConditions.test );
+        /* eslint-disable dot-notation */
+        expect( loader[ 'conditions' ] ).toHaveProperty( 'inViewport', conditions.inViewport );
+        expect( loader[ 'conditions' ] ).toHaveProperty( 'test', customConditions.test );
+        /* eslint-enable dot-notation */
     } );
 
     test( 'to resolve Loader.promise when all not conditionally loaded components have been loaded', () => {
         const loader = new Loader();
         const allComponentsResolvedCallback = jest.fn();
-
-        Promise.all( loader.queries ).then( () => {
+        /* eslint-disable dot-notation */
+        Promise.all( loader[ 'queries' ] ).then( () => {
             Promise.all( loader.components.map( component => component.$instance.promise ) ).then( () => {
                 allComponentsResolvedCallback();
                 expect( allComponentsResolvedCallback ).toHaveBeenCalledTimes( 1 );
             } );
         } );
-
+        /* eslint-enable dot-notation */
         expect.assertions( 1 );
 
         return loader.promise;
@@ -112,8 +116,10 @@ describe( 'Loader', () => {
         const loader = new Loader();
 
         loader.promise.then( () => {
+            /* eslint-disable dot-notation */
             expect( document.querySelectorAll( '[data-ds-component].' +
-                loader.options.initializedClass ) ).toHaveLength( 5 );
+                loader[ 'options' ].initializedClass ) ).toHaveLength( 5 );
+            /* eslint-enable dot-notation */
         } );
 
         expect.assertions( 1 );
@@ -149,9 +155,9 @@ describe( 'Loader', () => {
 
     test( 'to add queried components to Loader.queries', () => {
         const loader = new Loader();
-
-        expect( loader.queries ).toHaveLength( 4 );
-
+        /* eslint-disable dot-notation */
+        expect( loader[ 'queries' ] ).toHaveLength( 4 );
+        /* eslint-enable dot-notation */
         return loader.promise;
     } );
 
@@ -198,7 +204,7 @@ describe( 'Loader', () => {
 
     test( 'to log an error if the initialization of a component failed', () => {
         consoleError.mockClear();
-        components[ 'modules/test/component1' ] = class MTC1New extends Component {
+        components[ 'modules/test/component1' ] = class MTC1new extends Component {
             ready() {
                 return new Promise( ( resolve, reject ) => {
                     reject();

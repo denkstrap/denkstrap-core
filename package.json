@@ -12,7 +12,8 @@
     "src/index.d.ts"
   ],
   "scripts": {
-    "dev": "echo \"Error: no dev task specified yet\" && exit 1",
+    "dev": "tsc",
+    "start": "tsc -w",
     "build": "npm run build:esm && npm run build:umd && npm run build:esnext",
     "build:esm": "tsc -p tsconfig.json",
     "build:umd": "tsc -p tsconfig.umd.json",
